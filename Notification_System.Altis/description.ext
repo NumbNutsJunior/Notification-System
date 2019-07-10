@@ -1,0 +1,24 @@
+// Server Information
+author = "";
+OnLoadName = "";
+
+class Header
+{
+	gameType = Sandbox;
+	minPlayers = 1;
+	maxPlayers = 30;
+};
+
+// Server Settings
+respawn = BASE;
+respawndelay = 0;
+respawnDialog = 0;
+respawnButton = 0;
+disabledAI = true;
+joinUnassigned = 0;
+
+// CFG
+#include "functions.hpp"
+#include "hud\common.hpp"
+#include "hud\dialog\dialog_master.hpp"
+#include "hud\rscTitles\rsc_titles_master.hpp"
