@@ -4,10 +4,10 @@
 //  Description: Handle the creation of new messages
 
 // Error checks
-if !(canSuspend) exitWith {_this spawn life_fnc_handleMessage};
+if ((isNil "_thisScript") || !(canSuspend)) exitWith {_this spawn life_fnc_handleMessage};
 
 // Parameters
-params [["_text", ""], ["_duration", 5], ["_priority", 5], ["_color", [0.50, 0, 0]]];
+params [["_text", ""], ["_duration", 5], ["_priority", 5], ["_color", [0.50, 0, 0]], ["_condition", {true}]];
 if (_text isEqualTo "") exitWith {};
 
 // Queue message handling
@@ -32,4 +32,4 @@ private _foundPriorities = {(_x select 0) isEqualTo _priority} count _currentMes
 {if ((_x select 0) >= _priority) exitWith {_insertIndex = ((count _currentMessages) - (_forEachIndex + _foundPriorities))}} forEach _currentMessages;
 
 // Create message
-[_insertIndex, _text, _duration, _priority, _color] call life_fnc_createMessage;
+[_insertIndex, _text, _duration, _priority, _color, _condition] call life_fnc_createMessage;

@@ -4,7 +4,7 @@
 //  Description: Creates a timed hint-type notification
 
 // Parameters
-params [["_insertIndex", 0], ["_text", ""], ["_duration", 5], ["_priority", 5], ["_color", [0.50, 0, 0]]];
+params [["_insertIndex", 0], ["_text", ""], ["_duration", 5], ["_priority", 5], ["_color", [0.50, 0, 0]], ["_condition", {true}]];
 if (_text isEqualTo "") exitWith {};
 private ["_control", "_progress"];
 
@@ -114,10 +114,10 @@ _ctrlGroup ctrlCommit 0.20;
 waitUntil {ctrlCommitted _ctrlGroup};
 
 // Animate progress bar
-[_ctrlGroup controlsGroupCtrl 1001, _duration] spawn{
+[_ctrlGroup controlsGroupCtrl 1001, _duration, _condition] spawn{
 
     // Init
-    params [["_progress", controlNull], ["_duration", 5]];
+    params [["_progress", controlNull], ["_duration", 5], ["_condition", {true}]];
     if (isNull _progress) exitWith {};
 
     // Init
@@ -132,6 +132,7 @@ waitUntil {ctrlCommitted _ctrlGroup};
         // Animate progress bar
         _progress progressSetPosition ((_endTime - time) / _duration);
         if ((isNull _progress) || (time >= _endTime)) exitWith {};
+        if !(call _condition) exitWith {};
 
         // Wait
         uiSleep 0.01;
