@@ -56,3 +56,4 @@ if ((count life_message_list) >= 1) then {waitUntil {ctrlCommitted ((life_messag
 // Remove message from list - Not really necessary
 private _index = life_message_list findIf {(_x select 1) isEqualTo _ctrlGroup};
 if !(_index isEqualTo -1) then {life_message_list deleteAt _index};
+if (!isNull _ctrlGroup) then {ctrlDelete _ctrlGroup};
