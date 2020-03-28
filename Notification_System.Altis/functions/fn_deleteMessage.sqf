@@ -5,7 +5,7 @@
 
 // Error checks
 if (isNull (uiNamespace getVariable ["life_message_hud", displayNull])) exitWith {};
-if !(canSuspend) exitWith {_this spawn life_fnc_deleteMessage};
+if ((isNil "_thisScript") || !(canSuspend)) exitWith {_this spawn (call compile _fnc_scriptName)};
 
 // Parameters
 params[["_ctrlGroup", controlNull, [controlNull]]];
@@ -15,7 +15,7 @@ for "_i" from 0 to 1 step 0 do {
 
     // Check to exit message queue
     if (life_message_active isEqualTo _thisScript) exitWith {};
-    waitUntil {scriptDone life_message_active};
+    waitUntil {uiSleep 0.025; (scriptDone life_message_active)};
     life_message_active = _thisScript;
 };
 

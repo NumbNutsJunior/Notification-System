@@ -4,7 +4,7 @@
 //  Description: Handle the creation of new messages
 
 // Error checks
-if ((isNil "_thisScript") || !(canSuspend)) exitWith {_this spawn life_fnc_handleMessage};
+if ((isNil "_thisScript") || !(canSuspend)) exitWith {_this spawn (call compile _fnc_scriptName)};
 
 // Parameters
 params [["_text", ""], ["_duration", 5], ["_priority", 5], ["_color", [0.50, 0, 0]], ["_condition", {true}]];
@@ -15,7 +15,7 @@ for "_i" from 0 to 1 step 0 do {
 
 	// Check to exit message queue
 	if (life_message_active isEqualTo _thisScript) exitWith {};
-	waitUntil {scriptDone life_message_active};
+	waitUntil {uiSleep 0.025; (scriptDone life_message_active)};
 	life_message_active = _thisScript;
 };
 
